@@ -1,5 +1,8 @@
 ﻿namespace Editor;
 
+/// <summary>
+/// Runs anytime ViewportTools is re/built: adds play, pause, eject buttons to the toolbar and hooks up their events.
+/// </summary>
 partial class ViewportTools
 {
 	EditorToolButton PlayButton { get; set; }
@@ -16,8 +19,11 @@ partial class ViewportTools
 	}
 
 	/// <summary>
-	/// When the state of game changes, e.g we're playing, stopping, ejecting, pausing, this gets called.
+	/// When the state of game changes, e.g we're playing, stopping, ejecting (nope), pausing, this gets called.
+	/// Note: scene.pause/resume doesn't call ViewportTools.Rebuild(), so we need to hook into those events to update the toolbar state.
 	/// </summary>
+	[Event( "scene.pause")]
+	[Event( "scene.resume")]
 	private void UpdateState()
 	{
 		// Prefabs nada
@@ -70,7 +76,6 @@ partial class ViewportTools
 	private void Pause()
 	{
 		EditorScene.TogglePause();
-		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight; // a bit of a delay in changing the color.
 	}
 
 	[Shortcut( "editor.eject", "F8", ShortcutType.Window )]

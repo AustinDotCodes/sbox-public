@@ -202,15 +202,18 @@ public static class EditorScene
 	public static void TogglePause()
 	{
 		EditorShortcuts.ReleaseAll();
-		if ( !Game.IsPaused )
+		if ( Game.IsPlaying )
 		{
-			Game.IsPaused = true;
-			EditorEvent.Run( "scene.pause" );
-		}
-		else
-		{
-			Game.IsPaused = false;
-			EditorEvent.Run( "scene.resume" );
+			if ( !Game.IsPaused )
+			{
+				Game.IsPaused = true;
+				EditorEvent.Run( "scene.pause" );
+			}
+			else
+			{
+				Game.IsPaused = false;
+				EditorEvent.Run( "scene.resume" );
+			}
 		}
 	}
 
