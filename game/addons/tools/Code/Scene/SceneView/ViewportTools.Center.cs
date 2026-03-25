@@ -44,6 +44,7 @@ partial class ViewportTools
 
 		// We can only pause whilst we're gaming
 		PauseButton.Enabled = Game.IsPlaying;
+		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight;
 
 		EjectButton.Enabled = Game.IsPlaying;
 		bool isEjected = sceneViewWidget.CurrentView == SceneViewWidget.ViewMode.GameEjected;
@@ -52,7 +53,7 @@ partial class ViewportTools
 		EjectButton.Color = isEjected ? Theme.Green : Theme.TextLight;
 	}
 
-
+	[Shortcut( "editor.toggle-play", "F5" )]
 	private void PlayStop()
 	{
 		if ( !Game.IsPlaying )
@@ -65,11 +66,11 @@ partial class ViewportTools
 		}
 	}
 
+	[Shortcut( "editor.toggle-pause", "F7" )]
 	private void Pause()
 	{
-		// What the fuck, why isnt this a method
-		Game.IsPaused = !Game.IsPaused;
-		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight;
+		EditorScene.TogglePause();
+		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight; // a bit of a delay in changing the color.
 	}
 
 	[Shortcut( "editor.eject", "F8", ShortcutType.Window )]

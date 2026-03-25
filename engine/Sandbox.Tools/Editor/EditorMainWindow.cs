@@ -155,6 +155,8 @@ public class EditorMainWindow : DockWindow
 		{
 			var gameMenu = MenuBar.AddMenu( "Game" );
 			gameMenu.AddOption( "Play", "play_arrow", EditorScene.TogglePlay, "editor.toggle-play" );
+			gameMenu.AddOption( "Pause", "pause", EditorScene.TogglePlay, "editor.toggle-pause" );
+			gameMenu.AddOption( "Stop", "stop", EditorScene.Stop, "editor.toggle-play" );
 
 			gameMode = gameMenu.AddOption( new Option()
 			{
