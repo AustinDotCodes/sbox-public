@@ -22,8 +22,8 @@ partial class ViewportTools
 	/// When the state of game changes, e.g we're playing, stopping, ejecting (nope), pausing, this gets called.
 	/// Note: scene.pause/resume doesn't call ViewportTools.Rebuild(), so we need to hook into those events to update the toolbar state.
 	/// </summary>
-	[Event( "scene.pause")]
-	[Event( "scene.resume")]
+	[Event( "scene.pause" )]
+	[Event( "scene.resume" )]
 	private void UpdateState()
 	{
 		// Prefabs nada
