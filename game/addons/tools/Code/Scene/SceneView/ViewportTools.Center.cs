@@ -59,7 +59,6 @@ partial class ViewportTools
 		EjectButton.Color = isEjected ? Theme.Green : Theme.TextLight;
 	}
 
-	[Shortcut( "editor.toggle-play", "F5" )]
 	private void PlayStop()
 	{
 		if ( !Game.IsPlaying )
@@ -72,7 +71,6 @@ partial class ViewportTools
 		}
 	}
 
-	[Shortcut( "editor.toggle-pause", "F7" )]
 	private void Pause()
 	{
 		EditorScene.TogglePause();
