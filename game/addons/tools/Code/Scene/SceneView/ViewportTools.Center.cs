@@ -16,8 +16,11 @@ partial class ViewportTools
 	}
 
 	/// <summary>
-	/// When the state of game changes, e.g we're playing, stopping, ejecting, pausing, this gets called.
+	/// When the state of game changes, e.g we're playing, stopping, ejecting (nope), pausing, this gets called.
+	/// Note: scene.pause/resume doesn't call ViewportTools.Rebuild(), so we need to hook into those events to update the toolbar state.
 	/// </summary>
+	[Event( "scene.pause")]
+	[Event( "scene.resume" )]
 	private void UpdateState()
 	{
 		// Prefabs nada
@@ -44,6 +47,7 @@ partial class ViewportTools
 
 		// We can only pause whilst we're gaming
 		PauseButton.Enabled = Game.IsPlaying;
+		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight;
 
 		EjectButton.Enabled = Game.IsPlaying;
 		bool isEjected = sceneViewWidget.CurrentView == SceneViewWidget.ViewMode.GameEjected;
@@ -51,7 +55,6 @@ partial class ViewportTools
 		EjectButton.ToolTip = isEjected ? "Return to Game" : "Eject";
 		EjectButton.Color = isEjected ? Theme.Green : Theme.TextLight;
 	}
-
 
 	private void PlayStop()
 	{
@@ -67,9 +70,8 @@ partial class ViewportTools
 
 	private void Pause()
 	{
-		// What the fuck, why isnt this a method
-		Game.IsPaused = !Game.IsPaused;
-		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight;
+		EditorScene.TogglePause();
+		PauseButton.Color = Game.IsPaused ? Theme.Blue : Theme.TextLight; // a bit of a delay in changing the color.
 	}
 
 	[Shortcut( "editor.eject", "F8", ShortcutType.Window )]
