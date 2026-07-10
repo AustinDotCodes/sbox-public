@@ -553,7 +553,7 @@ class GradientStopWidget : Widget
 
 		OnAddPoint?.Invoke( delta );
 
-		Pressed = Points.FirstOrDefault( x => x.Time == delta );
+		Pressed = Points.FirstOrDefault( x => MathF.Abs( x.Time - delta ) < 0.001f );
 		Pressed?.Pressed?.Invoke( Pressed );
 		Update();
 	}
